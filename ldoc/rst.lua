@@ -57,7 +57,7 @@ local function get_module_info(m)
 end
 
 local function md_2_rst(text)
-   for header, sign in pairs({["^#"] = "=", ["\n#"] = "=", ["\n##"] = "-", ["\n###"] = "~"}) do
+   for header, sign in pairs({["^#"] = "=", ["\n#"] = "=", ["\n##"] = "-", ["\n###"] = "~", ["\n####"] = "^"}) do
       text = text:gsub(""..header.." (.-)[\r\n]", "\n" .. string.rep(sign, 79).."\n%1\n" .. string.rep(sign, 79) .. "\n\n")
    end
    local function tab_block(code_block)
