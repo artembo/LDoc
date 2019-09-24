@@ -64,10 +64,11 @@ local function md_2_rst(text)
       return code_block:gsub("\n", "\n    ")
    end
 
-   for code_lang in List {"lua", "yaml", "bash"}:iter() do
-      text = text:gsub("```("..code_lang..")(.-)```",
-              function(lang, code) return "\n.. code-block:: "..lang.." \n"..tab_block(code).."\n" end)
-   end
+   text = text:gsub("```(%a+)\n(.-)```",
+      function(lang, code) return "\n.. code-block:: "..lang.." \n"..tab_block('\n'..code).."\n" end)
+
+   text = text:gsub("```\n(.-)```",
+      function(code) return "\n.. code-block::\n"..tab_block('\n'..code).."\n" end)
 
    local function inline_link(label, link)
       label = label:match("%b[]"):sub(2,-2)
