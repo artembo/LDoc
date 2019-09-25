@@ -79,6 +79,11 @@ local function md_2_rst(text)
 
    text = text:gsub("(%b[])(%b())", inline_link)
 
+   local function md_2_rst_list(md_list_item, md_sublist_item)
+      return "\n"..md_list_item.."\n"..md_sublist_item
+   end
+   text = text:gsub("\n(%* .-\n)( +[%*-%d+])", md_2_rst_list)
+
    return text
 end
 
