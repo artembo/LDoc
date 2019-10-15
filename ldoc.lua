@@ -63,6 +63,7 @@ ldoc, a documentation generator for Lua, vs ]]..version..[[
   -M,--merge allow module merging
   -S,--simple no return or params, no summary
   -O,--one one-column output layout
+  -T,--toctree (default 'Table of contents') rst toctree header
   --date (default system) use this date in generated doc
   --dump                debug output dump
   --filter (default none) filter output as Lua data (e.g pl.pretty.dump)
@@ -239,7 +240,7 @@ local ldoc_contents = {
    'no_space_before_args','parse_extra','no_lua_ref','sort_modules','use_markdown_titles',
    'unqualified', 'custom_display_name_handler', 'kind_names', 'custom_references',
    'dont_escape_underscore','global_lookup','prettify_files','convert_opt', 'user_keywords',
-   'postprocess_html',
+   'postprocess_html', 'toctree',
    'custom_css','version',
    'no_args_infer',
    'without_source'
@@ -718,6 +719,7 @@ end
 override ('output','index')
 override ('dir','doc')
 override ('ext','html')
+override ('toctree','Table of contents')
 override 'one'
 
 -- handling styling and templates --

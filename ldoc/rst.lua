@@ -315,6 +315,7 @@ function rst.generate_output(ldoc, args, project)
    ldoc.ipairs = ipairs
    ldoc.pairs = pairs
    ldoc.print = print
+   ldoc.toctree = args.toctree
 
    -- Bang out the index.
    -- in single mode there is one module and the 'index' is the
