@@ -6,7 +6,7 @@ return [==[
 # local iter = ldoc.modules.iter
 # local function M(txt,item) return ldoc.markup(txt,item,ldoc.plain) end
 # local function trim(s) return (s:gsub("^%s*(.-)%s*$", "%1")) end
-# local function rem_enters(s) return s:gsub("[\r\n]", "") end
+# local function rem_newlines(s) return s:gsub("[\r\n]", "") end
 # local nowrap = ldoc.wrap and '' or 'nowrap'
 # if ldoc.body then -- verbatim HTML as contents; 'non-code' entries
 .. _$(module.name):
@@ -20,9 +20,7 @@ $(ldoc.module_typename(module)) *$(module.name)*
 ===============================================================================
 
 $(M(module.summary,module))
-
 $(M(module.description,module))
-
 # if module.tags.include then
 $(M(ldoc.include_file(module.tags.include)))
 # end
@@ -118,7 +116,7 @@ $(custom.title or custom[1]): custom
 #         local param,sublist = item:subparam(parm)
 #         local tab = ''
 #         if sublist then tab = '  '
-- *$(sublist):* $(M(item.params.map[sublist],item))
+- *$(sublist):* $(rem_newlines(M(item.params.map[sublist],item)))
 
 #         end
 #         for p in iter(param) do
@@ -133,7 +131,7 @@ $(custom.title or custom[1]): custom
 #           if item:readonly(p) then
 #             read_only = 'readonly'
 #           end
-$(tab)- *$(name):* $(tp) $(M(item.params.map[p],item)) $(trim(prop_type)) $(trim(read_only))
+$(tab)- *$(name):* $(tp) $(rem_newlines(M(item.params.map[p],item))) $(trim(prop_type)) $(trim(read_only))
 #         end
 #         if sublist then
 

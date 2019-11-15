@@ -31,6 +31,24 @@ local rst = {}
 
 local quit = utils.quit
 
+local cleaner = {
+	{ "&amp;", "&" }, -- decode ampersands
+	{ "&#151;", "-" }, -- em dash
+	{ "&mdash;", "—" }, -- en dash
+	{ "&#151;", "-" }, -- em dash
+	{ "&#146;", "'" }, -- right single quote
+	{ "&#147;", "\"" }, -- left double quote
+	{ "&#148;", "\"" }, -- right double quote
+	{ "&#160;", " " }, -- non-breaking space
+	{ "<br ?/?>", "\n" }, -- all <br> tags whether terminated or not (<br> <br/> <br />) become new lines
+	{ "</p>", "\n" }, -- ends of paragraphs become new lines
+	--{ "(%b<>)", "" }, -- all other html elements are completely removed (must be done last)
+	{ "\r", "\n" }, -- return carriage become new lines
+	{ "\n\n[\n]+", "\n\n" }, -- reduce all multiple new lines with a single new line
+	{ "^\n*", "" }, -- trim new lines from the start...
+	{ "\n*$", "" }, -- ... and end
+}
+
 local function cleanup_whitespaces(text)
    local lines = stringx.splitlines(text)
    for i = 1, #lines do
@@ -58,7 +76,11 @@ end
 
 local function md_2_rst(text)
    for header, sign in pairs({["^#"] = "=", ["\n#"] = "=", ["\n##"] = "-", ["\n###"] = "~", ["\n####"] = "^"}) do
-      text = text:gsub(""..header.." (.-)[\r\n]", "\n" .. string.rep(sign, 79).."\n%1\n" .. string.rep(sign, 79) .. "\n\n")
+      local function rst_header(header)
+         local slug = ".. _#" .. header:lower():gsub(' ', '-') .. ':'
+         return "\n\n" .. string.rep(sign, 79).."\n".. header .."\n" .. string.rep(sign, 79) .. "\n\n"
+      end
+      text = text:gsub(header .. " (.-)[\r\n]", rst_header)
    end
    local function tab_block(code_block)
       return code_block:gsub("\n", "\n    ")
@@ -74,6 +96,9 @@ local function md_2_rst(text)
       label = label:match("%b[]"):sub(2,-2)
       local url, title = link:match("%(<?(.-)>?[ \t]*['\"](.+)['\"]")
       url  = url or  link:match("%(<?(.-)>?%)") or ""
+      if url:sub(1, 1) == '#' then
+         return ('`%s`_'):format(label)
+      end
       return ('`%s <%s>`_'):format(label, url)
    end
 
@@ -84,6 +109,14 @@ local function md_2_rst(text)
    end
    text = text:gsub("(\n[%+%*%-%d]%.? .-\n)( +[%+%*%-%d])", md_2_rst_list)
    text = text:gsub("(\n%d+%..-\n)( +[%+%*%-%d])", md_2_rst_list)
+   -- clean html from the string
+   for i=1, #cleaner do
+      local cleans = cleaner[i]
+      text = string.gsub(text, cleans[1], cleans[2] )
+   end
+   --
+   text = text:gsub("<a .-</a>", "")
+   text = text:gsub("&mdash;", "—")
 
    return text
 end

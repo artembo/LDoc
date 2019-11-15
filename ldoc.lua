@@ -516,8 +516,9 @@ end
 -- create the function that renders text (descriptions and summaries)
 -- (this also will initialize the code prettifier used)
 if args.ext == "rst" then
-   args.format = "backtick"
+   args.format = "rst"
    ldoc.rst = true
+   ldoc.dont_escape_underscore = true
 else
    override ('format','plain')
 end
