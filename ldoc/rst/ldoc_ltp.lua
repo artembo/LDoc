@@ -39,8 +39,10 @@ See also:
 Usage:
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
+.. code-block:: lua
+
 #   for usage in iter(module.usage) do
-    - $(ldoc.escape(usage))
+    $(ldoc.indent(usage))
 #   end -- for
 
 # end -- if usage

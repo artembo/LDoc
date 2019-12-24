@@ -121,7 +121,7 @@ local function md_2_rst(text)
    return text
 end
 
-local escape_table = { ["'"] = "&apos;", ["\""] = "&quot;", ["&"] = "&amp;" }
+local escape_table = { ["\""] = "&quot;", ["&"] = "&amp;" }
 
 function rst.generate_output(ldoc, args, project)
    local check_directory, check_file, writefile = tools.check_directory, tools.check_file, tools.writefile
@@ -154,7 +154,7 @@ function rst.generate_output(ldoc, args, project)
       return (str:gsub("['`&<>\"]", escape_table))
    end
 
-   local function indent(text)
+   function ldoc.indent(text)
       return text:gsub('\n', '\n    ')
    end
 
