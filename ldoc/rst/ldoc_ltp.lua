@@ -7,6 +7,7 @@ return [==[
 # local function M(txt,item) return ldoc.markup(txt,item,ldoc.plain) end
 # local function trim(s) return (s:gsub("^%s*(.-)%s*$", "%1")) end
 # local function rem_newlines(s) return s:gsub("[\r\n]", "") end
+# local function indent(text) return text:gsub('\n', '\n    ') end
 # local nowrap = ldoc.wrap and '' or 'nowrap'
 # if ldoc.body then -- verbatim HTML as contents; 'non-code' entries
 .. _$(module.name):
@@ -42,7 +43,7 @@ Usage:
 .. code-block:: lua
 
 #   for usage in iter(module.usage) do
-    $(ldoc.indent(usage))
+    $(indent(usage))
 #   end -- for
 
 # end -- if usage
