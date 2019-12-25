@@ -4,10 +4,10 @@ return [==[
 # local no_spaces = ldoc.no_spaces
 # local display_name = ldoc.display_name
 # local iter = ldoc.modules.iter
+# local indent = ldoc.indent
 # local function M(txt,item) return ldoc.markup(txt,item,ldoc.plain) end
 # local function trim(s) return (s:gsub("^%s*(.-)%s*$", "%1")) end
 # local function rem_newlines(s) return s:gsub("[\r\n]", "") end
-# local function indent(text) return text:gsub('\n', '\n    ') end
 # local nowrap = ldoc.wrap and '' or 'nowrap'
 # if ldoc.body then -- verbatim HTML as contents; 'non-code' entries
 .. _$(module.name):

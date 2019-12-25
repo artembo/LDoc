@@ -164,7 +164,7 @@ function rst.generate_output(ldoc, args, project)
 
    function ldoc.prettify(str)
       if ldoc.rst == true then
-         return lua_code_block(indent(str))
+         return lua_code_block(ldoc.indent(str))
       else
          return prettify.code('lua','usage',str,0,false)
       end
