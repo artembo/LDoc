@@ -68,7 +68,13 @@ ldoc --ext=rst .
 
 ## Tests
 
-To run rst extension tests use:
+To run tests use:
+
+```bash
+lua run-tests.lua
+```
+
+Or to run rst tests:
 
 ```bash
 lua run-rst-tests.lua

@@ -12,4 +12,4 @@ before_install:
   - sudo apt-get install luarocks
   - sudo luarocks install penlight
 
-script: lua run-rst-tests.lua
+script: lua run-rst-tests.lua && lua run-tests.lua

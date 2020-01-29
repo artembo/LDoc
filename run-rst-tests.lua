@@ -5,7 +5,7 @@ local codes = {reset = "\27[0m", red = "\27[31m", green = "\27[32m"}
 local test_dirs = {
    'tests/rst-tests/single',
    -- Uncomment when @see tag will be implemented
-   --'tests/rst-tests/complex',
+   -- 'tests/rst-tests/complex',
    'tests/rst-tests/submodule',
    'tests/rst-tests/usage',
    'tests/rst-tests/annotation'
