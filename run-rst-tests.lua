@@ -1,5 +1,5 @@
-local lfs = require('lfs')
 
+local lfs = require('lfs')
 local codes = {reset = "\27[0m", red = "\27[31m", green = "\27[32m"}
 
 local test_dirs = {
@@ -50,12 +50,14 @@ local after_all = function()
    else
       return 0
    end
+
 end
 
 for _,d in ipairs(test_dirs) do
    local rc = run(d)
    after_each(d ,rc)
 end
+
 
 local rc = after_all()
 

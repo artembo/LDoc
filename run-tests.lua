@@ -52,6 +52,7 @@ end
 for _,d in ipairs(test_dirs) do
    local rc = run(d)
    after_each(d ,rc)
+
 end
 
 local rc = after_all()
